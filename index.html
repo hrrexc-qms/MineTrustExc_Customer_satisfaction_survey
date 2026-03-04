@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>استبيان قياس رضا العملاء - شركة ماين تراست</title>
+    <title>إستبيان قياس رضا العملاء - شركة ماين تراست</title>
     <link rel="icon" type="image/png" href="favicon.ico">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -21,6 +21,7 @@
             padding-top: 30px;
            direction: rtl;
             padding-bottom: 30px;
+            
         }
 
         /* تحسين مظهر البطاقة الرئيسية */
@@ -33,12 +34,26 @@
 
         .card-header {
             /* تعديل التدرج اللوني ليكون فيروزي من الشعار */
-            background: linear-gradient(45deg, #00a98f, #00c1a1); 
-            color: white;
+            background-color: lightblue; 
+            color: #141f53;
             padding: 1.5rem;
             border-bottom: none;
         }
-
+/* تنسيق إضافي للشعار والتجاوب */
+@media (max-width: 576px) {
+    .card-header {
+        text-align: center;
+        justify-content: center !important; /* توسيط المحتوى في الموبايل الصغير جداً */
+    }
+    .header-text {
+        text-align: center !important;
+        width: 100%;
+        margin-bottom: 15px;
+    }
+    .header-logo img {
+        max-height: 60px; /* تصغير الشعار قليلاً في الموبايل */
+    }
+}
         /* تنسيق قسم المقدمة Hero */
         .hero {
             background-color: #ffffff;
@@ -312,16 +327,51 @@ body {
 .bg-mine-trust-teal {
     background-color: #00a98f;
 }
+
+/* تنسيق فوتر الكارد */
+.card-footer-custom {
+            background-color: lightblue; 
+    border-top: 1px solid #eee;
+    padding: 15px 25px;
+    color: #141f53; /* اللون الأزرق الداكن للشركة */
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.contact-link {
+    color: #00a98f; /* لون فيروزي للرقم */
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.contact-link:hover {
+    color: #141f53;
+    text-decoration: underline;
+}
+
+@media (max-width: 576px) {
+    .card-footer-custom {
+        text-align: center;
+        flex-direction: column !important;
+        gap: 10px;
+    }
+}
     </style>
 </head>
 <body>
 
 <div class="container animated fadeIn">
     <div class="card">
-        <div class="card-header text-center">
-            <h4 class="mb-0"><i class="fas fa-poll-h me-2"></i> استبيان قياس رضا العملاء</h4>
-            <p class="mb-0 opacity-75" style="font-size: 0.9rem;">Customer Satisfaction Survey</p>
-        </div>
+       <div class="card-header d-flex justify-content-between align-items-center flex-wrap py-3 px-4">
+    <div class="header-text text-end">
+        <h4 class="mb-0"><i class="fas fa-poll-h me-2"></i> إستبيان قياس رضا العملاء</h4>
+        <!-- <p class="mb-0 opacity-75" style="font-size: 0.9rem;">Customer Satisfaction Survey</p> -->
+    </div>
+
+    <div class="header-logo mt-2 mt-md-0">
+        <img src="logominetrust2026.png" alt="شعار ماين تراست" class="img-fluid" style="max-height: 75px; width: auto; object-fit: contain;">
+    </div>
+</div>
         
         <section class="hero py-4 px-3">
             <div class="container">
@@ -408,10 +458,19 @@ body {
                         <i class="fas fa-paper-plane me-2"></i> إرسال التقييم
                     </button>
                 </div>
-            </form>
-        </div>
-    </div>
+           </form>
+        </div> <div class="card-footer-custom d-flex justify-content-between align-items-center flex-wrap">
+            <div class="footer-right">
+                <i class="fas fa-headset me-2 text-mine-trust-teal"></i>
+                للتواصل المباشر: 
+                <a href="tel:01234567" class="contact-link" dir="ltr">01-234567</a> </div>
 
+            <div class="footer-left text-muted fw-normal">
+                <!-- <i class="fas fa-file-code me-1"></i> -->
+                <span class="badge bg-light text-dark border">MTEC-QF-17-03/Rev02</span>
+            </div>
+        </div>
+</div>
 </div>
     <footer>
     <div class="footer-container">
