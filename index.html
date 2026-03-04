@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>استبيان قياس رضا العملاء - شركة ماين تراست</title>
+    <link rel="icon" type="image/png" href="favicon.ico">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+        body {
+            background-color: #f4f7f6; /* خلفية هادئة للصفحة - بقيت كما هي */
+            font-family: "Cairo", sans-serif;
+            padding-top: 30px;
+           direction: rtl;
+            padding-bottom: 30px;
+        }
+
+        /* تحسين مظهر البطاقة الرئيسية */
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        .card-header {
+            /* تعديل التدرج اللوني ليكون فيروزي من الشعار */
+            background: linear-gradient(45deg, #00a98f, #00c1a1); 
+            color: white;
+            padding: 1.5rem;
+            border-bottom: none;
+        }
+
+        /* تنسيق قسم المقدمة Hero */
+        .hero {
+            background-color: #ffffff;
+            border-bottom: 1px solid #eee;
+        }
+        .company-name {
+            /* تعديل اللون للأزرق الداكن من الشعار */
+            color: #141f53; 
+            font-weight: 700;
+        }
+        .intro-icon {
+            /* تعديل اللون للفيروزي من الشعار */
+            color: #00a98f; 
+            margin-left: 8px;
+        }
+
+        /* تحسين حقول الإدخال Input Groups */
+        .input-group-text {
+            background-color: #f8f9fa;
+            border-color: #ced4da;
+            /* تعديل لون الأيقونات للأزرق الداكن من الشعار */
+            color: #141f53; 
+        }
+        .form-control, .form-select {
+            border-color: #ced4da;
+            padding: 0.6rem;
+        }
+        .form-control:focus, .form-select:focus {
+            /* تعديل اللون للفيروزي عند التركيز */
+            border-color: #00a98f; 
+            box-shadow: 0 0 0 0.25rem rgba(0, 169, 143, 0.25);
+        }
+        .form-label {
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 0.5rem;
+        }
+
+        /* تنسيق جدول الاستبيان */
+        .survey-table-container {
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .table thead th {
+            /* تعديل لون رأس الجدول للأزرق الداكن من الشعار */
+            background-color: #141f53; 
+            color: white;
+            border: none;
+            vertical-align: middle;
+            font-weight: 600;
+        }
+        /* تقليل عرض عمود الأسئلة ليتسع لحقل "أخرى" */
+        .col-question {
+            width: 35%; /* تم تقليل العرض ليتسع للعمود الجديد */
+            text-align: right !important;
+        }
+        .col-id {
+            width: 5%;
+        }
+        /* تأثير عند مرور الماوس على الصفوف - تم تعديله للون أزرق خفيف */
+        .table-hover tbody tr:hover {
+            background-color: #e8eaef; 
+            transition: background-color 0.3s ease;
+        }
+        .table td {
+            vertical-align: middle;
+        }
+
+        /* تنسيق قسم الملاحظات */
+        .feedback-box {
+            /* تعديل الخلفية لتكون بيضاء والحد رمادي فاتح */
+            background-color: #ffffff; 
+            border-radius: 12px;
+            border: 2px solid #e9ecef; 
+        }
+        .feedback-title {
+            /* تعديل اللون للفيروزي من الشعار */
+            color: #00a98f; 
+            font-weight: 700;
+        }
+
+        /* زر الإرسال */
+        .btn-submit {
+            /* تعديل اللون للأزرق الداكن من الشعار */
+            background-color: #141f53; 
+            border: none;
+            padding: 12px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            /* تعديل الظل ليتناسب مع الأزرق الداكن */
+            box-shadow: 0 4px 15px rgba(20, 31, 83, 0.3); 
+            transition: all 0.3s ease;
+        }
+        .btn-submit:hover {
+            /* تعديل لون التحويم للأزرق الداكن الأغمق */
+            background-color: #0f173f; 
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(20, 31, 83, 0.4); 
+        }
+        
+        /* تحسينات للموبايل */
+        @media (max-width: 768px) {
+            .col-question {
+                width: 100%;
+                font-size: 0.85rem;
+            }
+            .table thead th {
+                font-size: 0.8rem;
+            }
+            /* تحسين عرض حقل 'أخرى' في الموبايل */
+            #surveyTable td[data-label="أخرى"] {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            #surveyTable td[data-label="أخرى"]::before {
+                margin-bottom: 8px;
+            }
+            #surveyTable td[data-label="أخرى"] input {
+                width: 100%;
+            }
+        }
+        .fas{
+            border-radius: 20%;
+        }
+        .input-group-text{
+border:none; background:none
+
+        }
+        /* تنسيق التجاوب للهواتف */
+@media (max-width: 600px) {
+    /* إخفاء رأس الجدول الأصلي */
+    #surveyTable thead {
+        display: none;
+    }
+
+    #surveyTable, #surveyTable tbody, #surveyTable tr, #surveyTable td {
+        display: block;
+        width: 100%;
+    }
+
+    #surveyTable tr {
+        margin-bottom: 20px;
+        /* تعديل الحد للأزرق الداكن */
+        border: 1px solid #141f53; 
+        border-radius: 15px;
+        overflow: hidden;
+        background: #fff;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    #surveyTable td {
+        text-align: right !important;
+        padding: 12px 15px;
+        border: none;
+        border-bottom: 1px solid #f0f0f0;
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    /* تنسيق خاص لعمود السؤال في الموبايل */
+    #surveyTable td.col-criterion {
+        /* تعديل الخلفية للأزرق الفاتح جداً */
+        background-color: #e8eaef; 
+        font-weight: bold;
+        /* تعديل اللون للأزرق الداكن */
+        color: #141f53; 
+        display: block; /* ليأخذ السطر كاملاً */
+        text-align: center !important;
+    }
+
+    /* إضافة تسمية قبل دوائر الاختيار في الموبايل */
+    #surveyTable td:not(.col-criterion):not(.col-id)::before {
+        content: attr(data-label); /* سنسحب النص من خاصية data-label */
+        font-weight: bold;
+        color: #555;
+    }
+
+    #surveyTable td.col-id {
+        display: none; /* إخفاء الرقم المتسلسل في الموبايل لتقليل الزحام */
+    }
+}
+@media (max-width: 768px) {
+    /* تحويل الجدول إلى نظام كتل */
+    #surveyTable thead {
+        display: none; /* إخفاء الرأس في الموبايل */
+    }
+    
+    #surveyTable tbody tr {
+        display: block;
+        margin-bottom: 1.5rem;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    
+    #surveyTable td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: left;
+        border-bottom: 1px solid #eee;
+        padding: 10px 15px;
+    }
+
+    /* جعل السؤال يظهر بشكل بارز في أعلى البطاقة */
+    #surveyTable td.col-criterion {
+        display: block;
+        text-align: center !important;
+        background-color: #f8f9fa;
+        font-weight: bold;
+        /* تعديل اللون للأزرق الداكن */
+        color: #141f53; 
+    }
+
+    #surveyTable td.col-id {
+        display: none; /* إخفاء الرقم في الموبايل لتقليل الزحام */
+    }
+
+    /* إظهار التسمية (ممتاز، جيد..) بجانب الراديو بوتون */
+    #surveyTable td[data-label]::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: #666;
+    }
+}
+            /* تنسيق الفوتر الثابت */
+.footer-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    padding: 10px 0;
+    text-align: center;
+    /* تعديل الحد للفيروزي */
+    border-top: 2px solid #00a98f; 
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+    z-index: 999;
+}
+.brand-footer {
+    /* تعديل اللون للأزرق الداكن */
+    color: #141f53; 
+    font-weight: bold;
+    font-size: 0.9em;
+}
+.dev-footer {
+    /* تعديل اللون للفيروزي */
+    color: #00a98f; 
+    font-size: 0.8em;
+    margin-top: 2px;
+}
+/* إضافة هامش سفلي للحاوية الرئيسية لضمان عدم تغطية المحتوى بالفوتر */
+body {
+    padding-bottom: 70px; 
+}
+
+/* إضافة فئات مخصصة للألوان الجديدة لاستخدامها في JavaScript */
+.text-mine-trust-blue {
+    color: #141f53;
+}
+.text-mine-trust-teal {
+    color: #00a98f;
+}
+.bg-mine-trust-blue {
+    background-color: #141f53;
+}
+.bg-mine-trust-teal {
+    background-color: #00a98f;
+}
+    </style>
+</head>
+<body>
+
+<div class="container animated fadeIn">
+    <div class="card">
+        <div class="card-header text-center">
+            <h4 class="mb-0"><i class="fas fa-poll-h me-2"></i> استبيان قياس رضا العملاء</h4>
+            <p class="mb-0 opacity-75" style="font-size: 0.9rem;">Customer Satisfaction Survey</p>
+        </div>
+        
+        <section class="hero py-4 px-3">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-1 text-center text-md-end mb-3 mb-md-0">
+                        <i class="fas fa-bullseye fa-3x intro-icon"></i>
+                    </div>
+                    <div class="col-md-11">
+                        <p class="mb-2 lead fs-6">
+                            نحن في <span class="company-name"><i class="fas fa-building me-1"></i> شركة ماين تراست للصرافة والتحويلات</span> - نسعى جاهدين لتقديم أفضل الخدمات. رأيكم يهمنا ويساهم في تحسين جودة خدماتنا لتلبية احتياجاتكم.
+                        </p>
+                        <p class="mb-0 text-muted fst-italic" style="font-size: 0.9rem;">
+                            <i class="fas fa-info-circle me-1 text-mine-trust-teal"></i> عزيزنا العميل: كلما زادت التفاصيل التي تقدمها، كان بإمكاننا فهم تجربتك بشكل أفضل. نشكر وقتك الثمين.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="card-body p-4">
+            <form id="customerSurveyForm">
+                
+                <h6 class="fw-bold mb-3 text-secondary"><i class="fas fa-user-tag me-2"></i> بيانات العميل الأساسية:</h6>
+                <div class="row g-3 mb-5" >
+                    <div class="col-md-4">
+                        <label class="form-label">اسم العميل <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <span class="input-group-text" style=""><i class="fas fa-user"></i></span>
+                            <input type="text" name="customerName" class="form-control" placeholder="الاسم الثلاثي" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">نشاط العميل</label>
+                        <div class="input-group">
+                            <span class="input-group-text" ><i class="fas fa-briefcase"></i></span>
+                            <input type="text" name="activity" class="form-control" placeholder="مثال: تجاري، فردي...">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">رقم الهاتف <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-phone-alt"></i></span>
+                            <input type="tel" name="phone" class="form-control" id="phoneNumber" placeholder="مثال: 77xxxxxxx" maxlength="9" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mb-4">
+                     <h5 class="fw-bold text-dark"><i class="fas fa-list-check me-2 text-mine-trust-blue"></i> بنود التقييم | Survey Items</h5>
+                     <p class="text-muted small">يرجى اختيار التقييم المناسب لكل بند (5 هو الأفضل) أو كتابة ملاحظتك</p>
+                </div>
+                
+              <div class="table-responsive survey-table-container mb-5">
+    <table class="table table-bordered table-hover text-center mb-0" id="surveyTable">
+        <thead>
+            <tr>
+                <th rowspan="2" class="col-id"><i class="fas fa-hashtag"></i></th>
+                <th rowspan="2" class="col-question col-criterion text-end pe-3"><i class="fas fa-clipboard-list me-2"></i> المعايير / الأسئلة</th>
+                <th colspan="5"><i class="fas fa-star me-1 text-mine-trust-teal"></i> مستوى الرضا</th>
+                <th rowspan="2" style="width: 15%;"><i class="fas fa-pen me-1 text-mine-trust-teal"></i> أخرى</th>
+            </tr>
+            <tr style="font-size: 0.85rem;">
+                <th>5<br><span class="badge bg-success fw-normal">ممتاز</span></th>
+                <th>4<br><span class="badge bg-primary fw-normal">جيد جداً</span></th>
+                <th>3<br><span class="badge bg-info text-dark fw-normal">جيد</span></th>
+                <th>2<br><span class="badge bg-secondary fw-normal">مقبول</span></th>
+                <th>1<br><span class="badge bg-danger fw-normal">ضعيف</span></th>
+            </tr>
+        </thead>
+        <tbody id="surveyBody">
+            </tbody>
+    </table>
+</div>
+
+                <div class="feedback-box p-4 mb-4">
+                    <label class="form-label feedback-title h6 mb-3">
+                        <i class="fas fa-comment-dots fa-lg me-2"></i> هل لديك أي شكوى أو مقترح إضافي؟
+                    </label>
+                    <textarea class="form-control" name="feedback" rows="4" placeholder="مساحة حرة لكتابة ملاحظاتك، مقترحاتك، أو تفاصيل شكواك..."></textarea>
+                </div>
+
+                <div class="text-center mt-5">
+                    <button type="submit" id="submitBtn" class="btn btn-primary btn-submit">
+                        <i class="fas fa-paper-plane me-2"></i> إرسال التقييم
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+    <footer>
+    <div class="footer-container">
+    <div class="brand-footer">
+       شركة ماين تراست للصرافة والتحويلات المالية -2026 © 
+    </div>
+    <div class="dev-footer">
+       تصميم وتطوير: محمد أحمد الشرفي
+    </div>
+</div>
+</footer>
+<script>
+    const surveyItems = [
+        "جودة الخدمات المقدمة بشكل عام.",
+        "دقة إنجاز المعاملات في الوقت المحدد.",
+        "كفاءة الموظفين وحسن تعاملهم وتصرفهم.",
+        "المدة الزمنية المستغرقة لتقديم الخدمة (سرعة الإنجاز).",
+        "دقة التقارير أو الإشعارات المستلمة من الشركة.",
+        "سرعة الحصول على التقارير المطلوبة.",
+        "سرعة استجابة الشركة للملاحظات أو الشكاوى.",
+        "المرونة في التعامل وسهولة الإجراءات.",
+        "مبادرة الشركة في تطوير الخدمات وتلبية الاحتياجات.",
+        "مدى الرضا عن أسعار الخدمات ورسوم التحويل."
+    ];
+
+    const surveyBody = document.getElementById('surveyBody');
+
+    const ratingOptions = [
+        { val: 5, label: "ممتاز" },
+        { val: 4, label: "جيد جداً" },
+        { val: 3, label: "جيد" },
+        { val: 2, label: "مقبول" },
+        { val: 1, label: "ضعيف" }
+    ];
+
+    surveyItems.forEach((item, index) => {
+        const questionIcon = '<i class="fas fa-caret-left text-mine-trust-blue me-2 opacity-50"></i>';
+        let row = `<tr>
+            <td class="fw-bold col-id">${index + 1}</td>
+            <td class="text-end pe-3 col-criterion">${questionIcon} ${item}</td>`;
+        
+        ratingOptions.forEach(option => {
+            row += `
+                <td data-label="${option.label}">
+                    <div class="form-check d-flex justify-content-center">
+                        <input class="form-check-input" type="radio" 
+                               name="q${index + 1}" 
+                               value="${option.val}" required>
+                    </div>
+                </td>`;
+        });
+
+        row += `
+            <td data-label="أخرى">
+                <input type="text" name="other_q${index + 1}" class="form-control form-control-sm" placeholder="ملاحظة...">
+            </td>
+        `;
+
+        row += `</tr>`;
+        surveyBody.innerHTML += row;
+    });
+
+    // --- الإضافات الجديدة لحقل الهاتف وتحويل الأرقام ---
+
+    const phoneInput = document.getElementById('phoneNumber');
+    
+    // وظيفة تحويل الأرقام الهندية/العربية إلى إنجليزية
+    function convertToEnglishDigits(str) {
+        return str.replace(/[٠-٩]/g, function(d) {
+            return d.charCodeAt(0) - 1632;
+        });
+    }
+
+    // مراقبة الإدخال في حقل الهاتف لتحويل الأرقام ومنع الحروف
+    phoneInput.addEventListener('input', function(e) {
+        let val = convertToEnglishDigits(this.value);
+        this.value = val.replace(/[^0-9]/g, ''); // إبقاء الأرقام فقط
+    });
+
+    document.getElementById('customerSurveyForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // 1. التحقق من رقم الهاتف (9 أرقام ويبدأ ببادئة صحيحة)
+        const phoneVal = phoneInput.value;
+        const validPrefixes = ['77', '78', '73', '71', '70'];
+        const prefix = phoneVal.substring(0, 2);
+
+        if (phoneVal.length !== 9) {
+            alert('❌ عذراً، رقم الهاتف يجب أن يتكون من 9 أرقام تماماً.');
+            phoneInput.focus();
+            return;
+        }
+
+        if (!validPrefixes.includes(prefix)) {
+            alert('❌ عذراً، يجب أن يبدأ الرقم بـ (77, 78, 73, 71, 70).');
+            phoneInput.focus();
+            return;
+        }
+
+        const btn = document.getElementById('submitBtn');
+        const originalBtnText = btn.innerHTML;
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> جاري الإرسال...';
+
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxgwRjjHL9IiOtMtRxVEbdrjghgicWyrx4E1az7rFaermDKhMPReKj7U5KOkJ4gkBdrpQ/exec';
+
+        fetch(scriptURL, { method: 'POST', body: new FormData(this)})
+            .then(response => {
+                console.log("تم الإرسال بنجاح"); 
+                alert('شكراً لك! تم استلام تقييمك بنجاح، ونحن نقدر وقتك واهتمامك.'); 
+                this.reset();
+                btn.disabled = false;
+                btn.innerHTML = originalBtnText;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            })
+            .catch(error => {
+                alert('❌ حدث خطأ أثناء الإرسال.');
+                btn.disabled = false;
+                btn.innerHTML = originalBtnText;
+            });
+    });
+</script>
+</body>
+</html>
